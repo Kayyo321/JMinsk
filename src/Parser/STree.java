@@ -19,7 +19,7 @@ public class STree {
     public Expression getRoot() { return root; }
     public SToken getEof() { return eof; }
 
-    public static STree getAST(final String text) {
+    public static STree getTree(final String text) {
         final Parser parser = new Parser(text);
         return parser.parse();
     }

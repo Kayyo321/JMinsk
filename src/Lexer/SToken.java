@@ -7,15 +7,17 @@ import java.util.List;
 
 public class SToken extends SNode {
     private final SKind kind;
-    private final int pos;
     private final String text;
     private final Object value;
 
-    public SToken(SKind kind, final int pos, final String text, Object value) {
+    public final int startI, endI;
+
+    public SToken(SKind kind, final String text, Object value, int startI, int endI) {
         this.kind = kind;
-        this.pos = pos;
         this.text = text;
         this.value = value;
+        this.startI = startI;
+        this.endI = endI;
     }
 
     @Override
@@ -33,14 +35,15 @@ public class SToken extends SNode {
         return sb.toString();
     }
 
-    public SKind  getKind()  { return this.kind; }
+    public SKind getKind()  { return this.kind; }
 
     @Override
     public List<SNode> getChildren() {
         return null;
     }
 
-    public int    getPos()   { return this.pos;  }
-    public String getText()  { return text;      }
-    public Object getValue() { return value;     }
+    public int    getStartI() { return this.startI; }
+    public int    getEndI()   { return this.startI; }
+    public String getText()   { return text;        }
+    public Object getValue()  { return value;       }
 }

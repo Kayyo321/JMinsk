@@ -1,42 +1,52 @@
-import Evaluator.Evaluator;
+import Evaluator.*;
 import Parser.*;
+import Binding.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private Main() {
+    public static void main(final String[] args) {
         Evaluator evaluator;
         STree syntaxTree;
         final Scanner s = new Scanner(System.in);
         String line;
+        Object result;
+        List<String> diagnostics;
+        Binder binder = new Binder();
+        BoundExpression boundExpression;
 
         while (true) {
-            System.out.print("> ");
+            System.out.print("jin> ");
             line = s.nextLine();
             if (line.isEmpty()) {
                 break;
             }
 
-            syntaxTree = STree.getAST(line);
+            syntaxTree = STree.getTree(line);
 
-            if (!syntaxTree.getDiagnostics().isEmpty()) {
-                for (final String diagnostic: syntaxTree.getDiagnostics()) {
+            diagnostics = syntaxTree.getDiagnostics();
+            diagnostics.addAll(binder.getDiagnostics());
+
+            boundExpression = binder.bindExpr(syntaxTree.getRoot());
+
+            if (!diagnostics.isEmpty()) {
+                for (final String diagnostic: diagnostics) {
                     System.err.println("<!> " + diagnostic);
                 }
+
+                break;
             } else {
-                evaluator = new Evaluator(syntaxTree.getRoot());
+                evaluator = new Evaluator(boundExpression);
                 try {
-                    final float result = evaluator.eval();
+                    result = evaluator.eval();
 
                     System.out.println("<DEBUG> result: " + result);
                 } catch (final Exception e) {
-                    System.err.println("<!> " + e.toString());
+                    System.err.println("<!> (Thrown from evaluator) " + e);
+                    break;
                 }
             }
         }
-    }
-
-    public static void main(final String[] args) {
-        new Main();
     }
 }
