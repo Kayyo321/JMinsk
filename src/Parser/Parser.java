@@ -1,5 +1,6 @@
 package Parser;
 
+import Diagnostics.DiagnosticBag;
 import Lexer.*;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 public class Parser {
     private final List<SToken> tokens = new ArrayList<>();
     private int pos;
-    private final List<String> diagnostics = new ArrayList<>();
+    private final DiagnosticBag diagnostics = new DiagnosticBag();
 
     public Parser(final String text) {
         final Lexer lexer = new Lexer(text);
@@ -26,7 +27,7 @@ public class Parser {
         diagnostics.addAll(lexer.getDiagnostics());
     }
 
-    public List<String> getDiagnostics() { return this.diagnostics; }
+    public DiagnosticBag getDiagnostics() { return this.diagnostics; }
 
     private SToken peek(final int offset) {
         final int index = this.pos + offset;
@@ -51,24 +52,40 @@ public class Parser {
             return nextToken();
         }
 
-        diagnostics.add("ERROR: unexpected token <" + current().getKind() + ">, expected <" + kind + ">...");
+        diagnostics.reportUnexpectedToken(current().getSpan(), current().getKind(), kind);
 
         return new SToken(kind, null, null, current().getStartI(), current().getEndI());
     }
 
     public STree parse() {
-        final Expression expr = parseExpr(0);
+        final Expression expr = parseExpr();
         final SToken eofToken = match(SKind.Eof);
 
         return new STree(this.diagnostics, expr, eofToken);
     }
 
-    private Expression parseExpr(final int parent) {
+    private Expression parseExpr() {
+        return parseAssignmentExpr();
+    }
+
+    private Expression parseAssignmentExpr() {
+        if (peek(0).getKind() == SKind.Identifier &&
+            peek(1).getKind() == SKind.Equals) {
+            final SToken idToken = nextToken();
+            final SToken opToken = nextToken();
+            final Expression right = parseAssignmentExpr();
+            return new AssignmentExpr(idToken, opToken, right);
+        }
+
+        return parseBinaryExpr(0);
+    }
+
+    private Expression parseBinaryExpr(final int parent) {
         Expression left;
         final int unaryPrec = getUnaryOperatorPrec(current().getKind());
         if (unaryPrec != 0 && unaryPrec > parent) {
             final SToken op = nextToken();
-            final Expression oper = parseExpr(0);
+            final Expression oper = parseBinaryExpr(0);
             left = new UnaryExpr(op, oper);
         } else {
             left = parsePrimary();
@@ -81,7 +98,7 @@ public class Parser {
             }
 
             final SToken op = nextToken();
-            final Expression right = parseExpr(prec);
+            final Expression right = parseBinaryExpr(prec);
             left = new BinaryExpr(left, op, right);
         }
 
@@ -111,7 +128,7 @@ public class Parser {
         switch (current().getKind()) {
             case LParen -> {
                 final SToken left = nextToken();
-                final Expression expr = parseExpr(0);
+                final Expression expr = parseBinaryExpr(0);
                 final SToken right = match(SKind.RParen);
                 return new ParenExpr(left, expr, right);
             }
@@ -120,7 +137,10 @@ public class Parser {
                 final boolean value = tok.getKind() == SKind.TrueKeyword;
                 return new LiteralExpr(tok, value);
             }
-
+            case Identifier -> {
+                final SToken idToken = nextToken();
+                return new NameExpr(idToken);
+            }
             default -> {
                 final SToken numberTok = match(SKind.Number);
                 return new LiteralExpr(numberTok);

@@ -8,7 +8,7 @@ public enum SKind {
             return false;
         }
     },
-    Eof, NumberExpr, BinaryExpr, ParenExpr, Number, UnaryExpr, TrueKeyword, FalseKeyword, Identifier, Bang, LAnd, LOr, LEquals, LNotEquals;
+    Eof, NumberExpr, BinaryExpr, ParenExpr, Number, UnaryExpr, TrueKeyword, FalseKeyword, Identifier, Bang, LAnd, LOr, LEquals, LNotEquals, NameExpr, AssignmentExpr, Equals;
 
     public boolean valid() { return true; }
 }

@@ -1,20 +1,19 @@
 import Evaluator.*;
+import Diagnostics.Diagnostic;
+import Diagnostics.DiagnosticBag;
 import Parser.*;
-import Binding.*;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(final String[] args) {
-        Evaluator evaluator;
+        // Define all possible vars outside inf-loop!
         STree syntaxTree;
         final Scanner s = new Scanner(System.in);
         String line;
-        Object result;
-        List<String> diagnostics;
-        Binder binder = new Binder();
-        BoundExpression boundExpression;
+        DiagnosticBag diagnostics;
+        Compilation compilation;
+        EvaluationResult evaluationResult;
 
         while (true) {
             System.out.print("jin> ");
@@ -24,26 +23,50 @@ public class Main {
             }
 
             syntaxTree = STree.getTree(line);
-
+            compilation = new Compilation(syntaxTree);
             diagnostics = syntaxTree.getDiagnostics();
-            diagnostics.addAll(binder.getDiagnostics());
-
-            boundExpression = binder.bindExpr(syntaxTree.getRoot());
+            diagnostics.addAll(compilation.getDiagnostics());
 
             if (!diagnostics.isEmpty()) {
-                for (final String diagnostic: diagnostics) {
-                    System.err.println("<!> " + diagnostic);
+                for (final Diagnostic d: diagnostics.getDiagnostics()) {
+                    System.err.println("<!> (Parser) [" + d.getSpan() + "], " + d.getMsg());
+
+                    final String prefix = line.substring(0, d.getSpan().getStart());
+                    final String error = line.substring(d.getSpan().getStart(), d.getSpan().getEnd());
+                    final String suffix = line.substring(d.getSpan().getEnd());
+
+                    System.err.print("\t");
+                    System.err.print(prefix);
+
+                    System.err.print(error);
+
+                    System.err.println(suffix);
+                    System.err.print("\t");
+
+                    // Print underline:
+                    for (int i = 0; i < prefix.length(); i++) {
+                        System.err.print(" ");
+                    }
+
+                    for (int i = 0; i < error.length(); i++) {
+                        System.err.print("^");
+                    }
+
+                    System.err.println();
                 }
 
                 break;
             } else {
-                evaluator = new Evaluator(boundExpression);
                 try {
-                    result = evaluator.eval();
+                    evaluationResult = compilation.Evaluate();
 
-                    System.out.println("<DEBUG> result: " + result);
+                    if (evaluationResult.getValue() != null) {
+                        System.out.println("<<< " + evaluationResult.getValue());
+                    } else {
+                        System.out.println("<<< (null result)");
+                    }
                 } catch (final Exception e) {
-                    System.err.println("<!> (Thrown from evaluator) " + e);
+                    System.err.println("<!> (Compilation) " + e);
                     break;
                 }
             }

@@ -1,21 +1,20 @@
 package Parser;
 
+import Diagnostics.DiagnosticBag;
 import Lexer.*;
 
-import java.util.List;
-
 public class STree {
-    private final List<String> diagnostics;
+    private final DiagnosticBag diagnostics;
     private final Expression root;
     private final SToken eof;
 
-    public STree(final List<String> diagnostics, final Expression root, final SToken eof) {
+    public STree(final DiagnosticBag diagnostics, final Expression root, final SToken eof) {
         this.diagnostics = diagnostics;
         this.root = root;
         this.eof = eof;
     }
 
-    public List<String> getDiagnostics() { return diagnostics; }
+    public DiagnosticBag getDiagnostics() { return diagnostics; }
     public Expression getRoot() { return root; }
     public SToken getEof() { return eof; }
 

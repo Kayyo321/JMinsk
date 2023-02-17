@@ -1,16 +1,16 @@
 package Lexer;
 
 import Binding.Type;
+import Diagnostics.DiagnosticBag;
+import Diagnostics.TextSpan;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Lexer {
     private final String text;
     private int pos = 0;
-    private final List<String> diagnostics = new ArrayList<>();
+    private final DiagnosticBag diagnostics = new DiagnosticBag();
 
     private Map<String, SKind> keywords = new HashMap<String, SKind>();
 
@@ -22,7 +22,7 @@ public class Lexer {
          keywords.put("false", SKind.FalseKeyword);
     }
 
-    public List<String> getDiagnostics() { return this.diagnostics; }
+    public DiagnosticBag getDiagnostics() { return this.diagnostics; }
 
     private char getCur() {
         return peek(0);
@@ -62,7 +62,7 @@ public class Lexer {
 
                 return new SToken(SKind.Number, sub, new Type(Type.Types.Float, value), start, length);
             } catch (final NumberFormatException nfe) {
-                diagnostics.add("ERROR: the number " + sub + " cannot be represented by an 32-bit floating-point number...");
+                diagnostics.reportInvalidNumber(new TextSpan(start, length), sub, Type.Types.Float);
                 return new SToken(SKind.Bad, sub, null, start, length);
             }
         } else if (Character.isWhitespace(getCur())) {
@@ -125,28 +125,35 @@ public class Lexer {
             }
             case '!' -> {
                 if (getAhead() == '=') {
-                    return new SToken(SKind.LNotEquals, "!=", null, this.pos += 2, this.pos);
+                    this.pos += 2;
+                    return new SToken(SKind.LNotEquals, "!=", null, this.pos - 2, this.pos);
                 }
 
                 return new SToken(SKind.Bang, "!", null, this.pos++, this.pos);
             }
             case '&' -> {
                 if (getAhead() == '&') {
-                    return new SToken(SKind.LAnd, "&&", null, this.pos += 2, this.pos);
+                    this.pos += 2;
+                    return new SToken(SKind.LAnd, "&&", null, this.pos - 2, this.pos);
                 }
             }
             case '|' -> {
                 if (getAhead() == '|') {
-                    return new SToken(SKind.LOr, "||", null, this.pos += 2, this.pos);
+                    this.pos += 2;
+                    return new SToken(SKind.LOr, "||", null, this.pos - 2, this.pos);
                 }
             }
             case '=' -> {
                 if (getAhead() == '=') {
-                    return new SToken(SKind.LEquals, "==", null, this.pos += 2, this.pos);
+                    this.pos += 2;
+
+                    return new SToken(SKind.LEquals, "==", null, this.pos - 2, this.pos);
                 }
+
+                return new SToken(SKind.Equals, "=", null, this.pos++, this.pos);
             }
             default -> {
-                diagnostics.add("ERROR: bad character input: \"" + getCur() + "\"...");
+                diagnostics.reportBadChar(this.pos, this.getCur());
             }
         }
 

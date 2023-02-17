@@ -1,9 +1,9 @@
 package Lexer;
 
 import Binding.Type;
+import Diagnostics.TextSpan;
 import Parser.SNode;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class SToken extends SNode {
@@ -47,4 +47,5 @@ public class SToken extends SNode {
     public int    getEndI()   { return this.startI; }
     public String getText()   { return text;        }
     public Type getValue()    { return value;       }
+    public TextSpan getSpan() { return new TextSpan(this.startI, this.endI); }
 }
