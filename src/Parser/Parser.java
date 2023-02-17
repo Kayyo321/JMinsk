@@ -90,17 +90,19 @@ public class Parser {
 
     private static int getBinaryOperatorPrec(final SKind kind) {
         return switch (kind) {
-            case Mod, Carrot -> 4;
-            case Star, Div -> 3;
-            case Plus, Minus -> 2;
-            case LAnd, LOr -> 1;
+            case Mod, Carrot -> 6;
+            case Star, Div -> 5;
+            case Plus, Minus -> 4;
+            case LEquals, LNotEquals -> 3;
+            case LAnd -> 2;
+            case LOr -> 1;
             default -> 0;
         };
     }
 
     private static int getUnaryOperatorPrec(final SKind kind) {
         return switch (kind) {
-            case Plus, Minus, Bang -> 5;
+            case Plus, Minus, Bang -> 7;
             default -> 0;
         };
     }

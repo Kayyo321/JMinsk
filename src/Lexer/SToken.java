@@ -1,5 +1,6 @@
 package Lexer;
 
+import Binding.Type;
 import Parser.SNode;
 
 import java.util.Iterator;
@@ -8,11 +9,11 @@ import java.util.List;
 public class SToken extends SNode {
     private final SKind kind;
     private final String text;
-    private final Object value;
+    private final Type value;
 
     public final int startI, endI;
 
-    public SToken(SKind kind, final String text, Object value, int startI, int endI) {
+    public SToken(SKind kind, final String text, final Type value, final int startI, final int endI) {
         this.kind = kind;
         this.text = text;
         this.value = value;
@@ -29,7 +30,7 @@ public class SToken extends SNode {
 
         if (this.value != null) {
             sb.append(" ");
-            sb.append(this.value);
+            sb.append(this.value.value);
         }
 
         return sb.toString();
@@ -45,5 +46,5 @@ public class SToken extends SNode {
     public int    getStartI() { return this.startI; }
     public int    getEndI()   { return this.startI; }
     public String getText()   { return text;        }
-    public Object getValue()  { return value;       }
+    public Type getValue()    { return value;       }
 }

@@ -5,29 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="376f8319-b15f-45a7-a8bd-704a477911e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Binding/Binder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundBinaryExpression.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundBinaryOperator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundBinaryOperatorKind.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundExpression.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundLiteralExpression.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundNodeKind.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundUnaryExpression.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundUnaryOperator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundUnaryOperatorKind.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/Type.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/UnaryExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/Binder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/Binder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundBinaryExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundBinaryExpression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundBinaryOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundBinaryOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundBinaryOperatorKind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundBinaryOperatorKind.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundExpression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundLiteralExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundLiteralExpression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundUnaryExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundUnaryExpression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundUnaryOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundUnaryOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Evaluator/Evaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evaluator/Evaluator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/SKind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/SKind.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/SToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/SToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/NumberExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/LiteralExpr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/STree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/STree.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,14 +109,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "last_opened_file_path": "C:/Users/sully/Documents/JMinsk",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sully/Documents/JMinsk&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Binding" />

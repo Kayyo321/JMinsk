@@ -21,52 +21,30 @@ public class Binder {
 
     private BoundExpression bindBinaryExpression(final BinaryExpr syntax) {
         final BoundExpression boundLeft = bindExpr(syntax.getLeft());
-        final BoundBinaryOperatorKind boundOperatorKind = bindBinaryOperatorKind(syntax.getOp().getKind());
         final BoundExpression boundRight = bindExpr(syntax.getRight());
+        final BoundBinaryOperator boundOperator = BoundBinaryOperator.bind(syntax.getOp().getKind(), boundLeft.getType(), boundRight.getType());
 
-        if (boundOperatorKind == null) {
-            diagnostics.add("ERROR: unary operator: '" + syntax.getOp().getText() + "' is not defined for type: " + boundLeft.getType() + ", and " +  boundRight.getType() + "...");
-            return null;
+        if (boundOperator == null) {
+            diagnostics.add("ERROR: binary operator: '" + syntax.getOp().getText() + "' is not defined for types: " + boundLeft.getType().type + ", and " + boundRight.getType().type + "...");
+            return boundLeft;
         }
 
-        return new BoundBinaryExpression(boundLeft, boundOperatorKind, boundRight);
-    }
-
-    private BoundBinaryOperatorKind bindBinaryOperatorKind(final SKind kind) {
-        return switch (kind) {
-            case Plus -> BoundBinaryOperatorKind.Addition;
-            case Minus -> BoundBinaryOperatorKind.Subtraction;
-            case Star -> BoundBinaryOperatorKind.Multiplication;
-            case Div -> BoundBinaryOperatorKind.Division;
-            case Mod -> BoundBinaryOperatorKind.Modulus;
-            case Carrot -> BoundBinaryOperatorKind.Exponent;
-            case LAnd -> BoundBinaryOperatorKind.LogicalAnd;
-            case LOr -> BoundBinaryOperatorKind.LogicalOr;
-            default -> null;
-        };
+        return new BoundBinaryExpression(boundLeft, boundOperator, boundRight);
     }
 
     private BoundExpression bindUnaryExpression(final UnaryExpr syntax) {
         final BoundExpression boundOperand = bindExpr(syntax.getOper());
-        final BoundUnaryOperatorKind boundOperatorKind = BoundUnaryOperator.bind(syntax.getOp().getKind(), boundOperand.getType());
+        final BoundUnaryOperator boundOperatorKind = BoundUnaryOperator.bind(syntax.getOp().getKind(), boundOperand.getType());
         if (boundOperatorKind == null) {
-            diagnostics.add("ERROR: unary operator: '" + syntax.getOp().getText() + "' is not defined for type: " + boundOperand.getType() + "...");
+            diagnostics.add("ERROR: unary operator: '" + syntax.getOp().getText() + "' is not defined for type: " + boundOperand.getType().type + "...");
             return boundOperand;
         }
         return new BoundUnaryExpression(boundOperatorKind, boundOperand);
     }
 
-    private BoundUnaryOperatorKind bindUnaryOperatorKind(final SKind kind) {
-        return switch (kind) {
-            case Plus -> BoundUnaryOperatorKind.Identity;
-            case Minus -> BoundUnaryOperatorKind.Negation;
-            case Bang -> BoundUnaryOperatorKind.LogicalNegation;
-            default -> null;
-        };
-    }
-
     private BoundExpression bindLiteralExpression(final LiteralExpr syntax) {
-        final Object value = syntax.getToken().getValue() != null ? syntax.getToken().getValue() : 0;
+        final Type value = syntax.getToken().getValue() != null ? new Type(syntax.getToken().getValue().type, syntax.getToken().getValue().value) : new Type(null);
+
         return new BoundLiteralExpression(value);
     }
 }

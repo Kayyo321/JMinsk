@@ -17,6 +17,10 @@ public class BoundBinaryOperator {
         this.resultType = resultType;
     }
 
+    public BoundBinaryOperator(final SKind skind, final BoundBinaryOperatorKind kind, final Type operandType, final Type resultType) {
+        this(skind, kind, operandType, operandType, resultType);
+    }
+
     public BoundBinaryOperator(final SKind skind, final BoundBinaryOperatorKind kind, final Type resultType) {
         this(skind, kind, resultType, resultType, resultType);
     }
@@ -28,19 +32,23 @@ public class BoundBinaryOperator {
     public Type getLeftType() { return leftType; }
 
     private static final BoundBinaryOperator[] operators = {
-        new BoundBinaryOperator(SKind.Plus, BoundBinaryOperatorKind.Addition, Type.Float),
-        new BoundBinaryOperator(SKind.Minus, BoundBinaryOperatorKind.Subtraction, Type.Float),
-        new BoundBinaryOperator(SKind.Star, BoundBinaryOperatorKind.Multiplication, Type.Float),
-        new BoundBinaryOperator(SKind.Div, BoundBinaryOperatorKind.Division, Type.Float),
-        new BoundBinaryOperator(SKind.Mod, BoundBinaryOperatorKind.Modulus, Type.Float),
-        new BoundBinaryOperator(SKind.Carrot, BoundBinaryOperatorKind.Exponent, Type.Float),
-        new BoundBinaryOperator(SKind.LAnd, BoundBinaryOperatorKind.LogicalAnd, Type.Boolean),
-        new BoundBinaryOperator(SKind.LOr, BoundBinaryOperatorKind.Addition, Type.Boolean)
+        new BoundBinaryOperator(SKind.Plus, BoundBinaryOperatorKind.Addition, new Type(Type.Types.Float)),
+        new BoundBinaryOperator(SKind.Minus, BoundBinaryOperatorKind.Subtraction, new Type(Type.Types.Float)),
+        new BoundBinaryOperator(SKind.Star, BoundBinaryOperatorKind.Multiplication, new Type(Type.Types.Float)),
+        new BoundBinaryOperator(SKind.Div, BoundBinaryOperatorKind.Division, new Type(Type.Types.Float)),
+        new BoundBinaryOperator(SKind.Mod, BoundBinaryOperatorKind.Modulus, new Type(Type.Types.Float)),
+        new BoundBinaryOperator(SKind.Carrot, BoundBinaryOperatorKind.Exponent, new Type(Type.Types.Float)),
+        new BoundBinaryOperator(SKind.LAnd, BoundBinaryOperatorKind.LogicalAnd, new Type(Type.Types.Boolean)),
+        new BoundBinaryOperator(SKind.LOr, BoundBinaryOperatorKind.LogicalOr, new Type(Type.Types.Boolean)),
+        new BoundBinaryOperator(SKind.LEquals, BoundBinaryOperatorKind.LogicalEquals, new Type(Type.Types.Float), new Type(Type.Types.Boolean)),
+        new BoundBinaryOperator(SKind.LNotEquals, BoundBinaryOperatorKind.LogicalNotEquals, new Type(Type.Types.Float), new Type(Type.Types.Boolean)),
+        new BoundBinaryOperator(SKind.LEquals, BoundBinaryOperatorKind.LogicalEquals, new Type(Type.Types.Boolean)),
+        new BoundBinaryOperator(SKind.LNotEquals, BoundBinaryOperatorKind.LogicalNotEquals, new Type(Type.Types.Boolean))
     };
 
     public static BoundBinaryOperator bind(final SKind skind, final Type leftType, final Type rightType) {
         for (final BoundBinaryOperator op: operators) {
-            if (op.skind == skind && op.leftType == leftType && op.rightType == rightType) {
+            if (op.skind == skind && op.leftType.type == leftType.type && op.rightType.type == rightType.type) {
                 return op;
             }
         }

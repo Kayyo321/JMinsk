@@ -1,5 +1,7 @@
 package Lexer;
 
+import Binding.Type;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +60,7 @@ public class Lexer {
             try {
                 final float value = Float.parseFloat(sub);
 
-                return new SToken(SKind.Number, sub, value, start, length);
+                return new SToken(SKind.Number, sub, new Type(Type.Types.Float, value), start, length);
             } catch (final NumberFormatException nfe) {
                 diagnostics.add("ERROR: the number " + sub + " cannot be represented by an 32-bit floating-point number...");
                 return new SToken(SKind.Bad, sub, null, start, length);
@@ -85,13 +87,15 @@ public class Lexer {
             final String sub = text.substring(start, length);
 
             Object value = sub;
+            Type.Types t = Type.Types.Id;
 
             final SKind sk = keywords.getOrDefault(sub, SKind.Identifier);
             if (sk == SKind.TrueKeyword || sk == SKind.FalseKeyword) {
                 value = (sk == SKind.TrueKeyword);
+                t = Type.Types.Boolean;
             }
 
-            return new SToken(sk, sub, value, start, length);
+            return new SToken(sk, sub, new Type(t, value), start, length);
         }
 
         switch (getCur()) {
@@ -120,6 +124,10 @@ public class Lexer {
                 return new SToken(SKind.RParen, ")", null, this.pos++, this.pos);
             }
             case '!' -> {
+                if (getAhead() == '=') {
+                    return new SToken(SKind.LNotEquals, "!=", null, this.pos += 2, this.pos);
+                }
+
                 return new SToken(SKind.Bang, "!", null, this.pos++, this.pos);
             }
             case '&' -> {
@@ -130,6 +138,11 @@ public class Lexer {
             case '|' -> {
                 if (getAhead() == '|') {
                     return new SToken(SKind.LOr, "||", null, this.pos += 2, this.pos);
+                }
+            }
+            case '=' -> {
+                if (getAhead() == '=') {
+                    return new SToken(SKind.LEquals, "==", null, this.pos += 2, this.pos);
                 }
             }
             default -> {

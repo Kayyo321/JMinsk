@@ -1,7 +1,7 @@
 package Binding;
 
 public class BoundLiteralExpression extends BoundExpression {
-    final Type value;
+    private final Type value;
 
     public  BoundLiteralExpression(final Type value) {
         this.value = value;
@@ -11,5 +11,5 @@ public class BoundLiteralExpression extends BoundExpression {
     public BoundNodeKind getKind() { return BoundNodeKind.LiteralExpr; }
 
     @Override
-    public Object getType() { return value; }
+    public Type getType() { return value; }
 }

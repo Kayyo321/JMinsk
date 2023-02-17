@@ -6,5 +6,5 @@ public enum BoundBinaryOperatorKind {
     Multiplication,
     Division,
     Modulus,
-    LogicalAnd, LogicalOr, Exponent
+    LogicalAnd, LogicalOr, LogicalEquals, LogicalNotEquals, Exponent
 }

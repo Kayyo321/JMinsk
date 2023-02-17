@@ -25,9 +25,9 @@ public class BoundUnaryOperator {
     public Type getResultType() { return this.resultType; }
 
     private static final BoundUnaryOperator[] operators = {
-            new BoundUnaryOperator(SKind.Bang, BoundUnaryOperatorKind.LogicalNegation, Type.Boolean),
-            new BoundUnaryOperator(SKind.Plus, BoundUnaryOperatorKind.Identity, Type.Float),
-            new BoundUnaryOperator(SKind.Minus, BoundUnaryOperatorKind.Negation, Type.Float)
+            new BoundUnaryOperator(SKind.Bang, BoundUnaryOperatorKind.LogicalNegation, new Type(Type.Types.Boolean)),
+            new BoundUnaryOperator(SKind.Plus, BoundUnaryOperatorKind.Identity, new Type(Type.Types.Float)),
+            new BoundUnaryOperator(SKind.Minus, BoundUnaryOperatorKind.Negation, new Type(Type.Types.Float))
     };
 
     public static BoundUnaryOperator bind(final SKind skind, final Type type) {
