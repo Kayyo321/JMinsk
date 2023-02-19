@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Jinsk:jar">
+    <output-path>$PROJECT_DIR$/exec</output-path>
+    <root id="archive" name="Jinsk.jar">
+      <element id="module-output" name="Jinsk" />
+    </root>
+  </artifact>
+</component>

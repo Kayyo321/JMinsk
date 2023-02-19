@@ -54,7 +54,7 @@ public class Parser {
 
         diagnostics.reportUnexpectedToken(current().getSpan(), current().getKind(), kind);
 
-        return new SToken(kind, null, null, current().getStartI(), current().getEndI());
+        return new SToken(kind, null, null, current().getStartI(), current().getEndI(), -1);
     }
 
     public STree parse() {
@@ -136,6 +136,10 @@ public class Parser {
                 final SToken tok = nextToken();
                 final boolean value = tok.getKind() == SKind.TrueKeyword;
                 return new LiteralExpr(tok, value);
+            }
+            case NilKeyword -> {
+                final SToken tok = nextToken();
+                return new LiteralExpr(tok, null);
             }
             case Identifier -> {
                 final SToken idToken = nextToken();

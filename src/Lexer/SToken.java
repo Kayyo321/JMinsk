@@ -10,15 +10,17 @@ public class SToken extends SNode {
     private final SKind kind;
     private final String text;
     private final Type value;
+    private final long line;
 
     public final int startI, endI;
 
-    public SToken(SKind kind, final String text, final Type value, final int startI, final int endI) {
+    public SToken(SKind kind, final String text, final Type value, final int startI, final int endI, final long line) {
         this.kind = kind;
         this.text = text;
         this.value = value;
         this.startI = startI;
         this.endI = endI;
+        this.line = line;
     }
 
     @Override
@@ -32,6 +34,9 @@ public class SToken extends SNode {
             sb.append(" ");
             sb.append(this.value.value);
         }
+
+        sb.append(" LN: ");
+        sb.append(this.line);
 
         return sb.toString();
     }

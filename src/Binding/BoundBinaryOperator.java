@@ -30,18 +30,22 @@ public class BoundBinaryOperator {
     public Type getResultType() { return this.resultType; }
 
     private static final BoundBinaryOperator[] operators = {
-        new BoundBinaryOperator(SKind.Plus, BoundBinaryOperatorKind.Addition, new Type(Type.Types.Float)),
-        new BoundBinaryOperator(SKind.Minus, BoundBinaryOperatorKind.Subtraction, new Type(Type.Types.Float)),
-        new BoundBinaryOperator(SKind.Star, BoundBinaryOperatorKind.Multiplication, new Type(Type.Types.Float)),
-        new BoundBinaryOperator(SKind.Div, BoundBinaryOperatorKind.Division, new Type(Type.Types.Float)),
-        new BoundBinaryOperator(SKind.Mod, BoundBinaryOperatorKind.Modulus, new Type(Type.Types.Float)),
-        new BoundBinaryOperator(SKind.Carrot, BoundBinaryOperatorKind.Exponent, new Type(Type.Types.Float)),
+        new BoundBinaryOperator(SKind.Plus, BoundBinaryOperatorKind.Addition, new Type(Type.Types.Digit)),
+        new BoundBinaryOperator(SKind.Minus, BoundBinaryOperatorKind.Subtraction, new Type(Type.Types.Digit)),
+        new BoundBinaryOperator(SKind.Star, BoundBinaryOperatorKind.Multiplication, new Type(Type.Types.Digit)),
+        new BoundBinaryOperator(SKind.Div, BoundBinaryOperatorKind.Division, new Type(Type.Types.Digit)),
+        new BoundBinaryOperator(SKind.Mod, BoundBinaryOperatorKind.Modulus, new Type(Type.Types.Digit)),
+        new BoundBinaryOperator(SKind.Carrot, BoundBinaryOperatorKind.Exponent, new Type(Type.Types.Digit)),
         new BoundBinaryOperator(SKind.LAnd, BoundBinaryOperatorKind.LogicalAnd, new Type(Type.Types.Boolean)),
         new BoundBinaryOperator(SKind.LOr, BoundBinaryOperatorKind.LogicalOr, new Type(Type.Types.Boolean)),
-        new BoundBinaryOperator(SKind.LEquals, BoundBinaryOperatorKind.LogicalEquals, new Type(Type.Types.Float), new Type(Type.Types.Boolean)),
-        new BoundBinaryOperator(SKind.LNotEquals, BoundBinaryOperatorKind.LogicalNotEquals, new Type(Type.Types.Float), new Type(Type.Types.Boolean)),
+        new BoundBinaryOperator(SKind.LEquals, BoundBinaryOperatorKind.LogicalEquals, new Type(Type.Types.Digit), new Type(Type.Types.Boolean)),
+        new BoundBinaryOperator(SKind.LNotEquals, BoundBinaryOperatorKind.LogicalNotEquals, new Type(Type.Types.Digit), new Type(Type.Types.Boolean)),
         new BoundBinaryOperator(SKind.LEquals, BoundBinaryOperatorKind.LogicalEquals, new Type(Type.Types.Boolean)),
-        new BoundBinaryOperator(SKind.LNotEquals, BoundBinaryOperatorKind.LogicalNotEquals, new Type(Type.Types.Boolean))
+        new BoundBinaryOperator(SKind.LNotEquals, BoundBinaryOperatorKind.LogicalNotEquals, new Type(Type.Types.Boolean)),
+        new BoundBinaryOperator(SKind.LEquals, BoundBinaryOperatorKind.LogicalEquals, new Type(Type.Types.Nil)),
+        new BoundBinaryOperator(SKind.LNotEquals, BoundBinaryOperatorKind.LogicalNotEquals, new Type(Type.Types.Nil)),
+        new BoundBinaryOperator(SKind.LEquals, BoundBinaryOperatorKind.LogicalEquals, new Type(Type.Types.Nil), new Type(Type.Types.Digit)),
+        new BoundBinaryOperator(SKind.LNotEquals, BoundBinaryOperatorKind.LogicalNotEquals, new Type(Type.Types.Nil), new Type(Type.Types.Digit)),
     };
 
     public static BoundBinaryOperator bind(final SKind skind, final Type leftType, final Type rightType) {

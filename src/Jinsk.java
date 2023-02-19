@@ -4,9 +4,13 @@ import Diagnostics.Diagnostic;
 import Diagnostics.DiagnosticBag;
 import Parser.*;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Jinsk {
+    // If an error occurs twice, only print it out once; record it here.
+    private static final List<Diagnostic> previousErrors = new ArrayList<>();
+
     public static void main(final String[] args) {
         STree syntaxTree;
         final Scanner s = new Scanner(System.in);
@@ -21,6 +25,15 @@ public class Jinsk {
             line = s.nextLine();
             if (line.isEmpty()) {
                 break;
+            } else if (line.charAt(0) == '$') {
+                line = line.replace('$', ' ');
+                try {
+                    Runtime.getRuntime().exec("cmd /c " + line);
+                } catch (final IOException e) {
+                    System.err.println("<!> (Command) '" + line + "', was returned this error message: " + e);
+                }
+
+                continue;
             }
 
             syntaxTree = STree.getTree(line);
@@ -33,7 +46,7 @@ public class Jinsk {
                 break;
             } else {
                 try {
-                    evaluationResult = compilation.Evaluate(variables);
+                    evaluationResult = compilation.evaluate(variables);
                     diagnostics.addAll(evaluationResult.diagnostics());
 
                     if (!diagnostics.isEmpty()) {
@@ -55,9 +68,6 @@ public class Jinsk {
     }
 
     private static void printDiagnostics(final String src, final DiagnosticBag diagnosticBag) {
-        // If an error occurs twice, only print it out once; record it here.
-        final List<Diagnostic> previousErrors = new ArrayList<>();
-
         for (final Diagnostic d: diagnosticBag.getDiagnostics()) {
             if (previousErrors.contains(d)) {
                 continue;
@@ -65,11 +75,12 @@ public class Jinsk {
 
             previousErrors.add(d);
 
-            System.err.println("<!> (Parser) [" + d.span() + "], " + d.msg());
+            System.err.println("<!> (Diagnostic) [" + d.span() + "], " + d.msg());
 
             final String prefix = src.substring(0, d.span().start());
-            final String error = src.substring(d.span().start(), d.span().getEnd());
-            final String suffix = src.substring(d.span().getEnd());
+            // Exception will occur when printing out raw EOF, print fake instead.
+            final String error = d.msg().contains("<Eof>") ? "\\0" : src.substring(d.span().start(), Math.min(d.span().getEnd(), src.length()));
+            final String suffix = d.msg().contains("<Eof>") ? "..." : src.substring(d.span().getEnd());
 
             System.err.print("\t");
             System.err.print(prefix);
@@ -80,11 +91,13 @@ public class Jinsk {
             System.err.print("\t");
 
             // Print underline:
-            for (int i = 0; i < prefix.length(); i++) {
+            int i;
+
+            for (i = 0; i < prefix.length(); i++) {
                 System.err.print(" ");
             }
 
-            for (int i = 0; i < error.length(); i++) {
+            for (i = 0; i < error.length(); i++) {
                 System.err.print("^");
             }
 

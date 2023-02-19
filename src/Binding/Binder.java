@@ -4,6 +4,7 @@ import Diagnostics.DiagnosticBag;
 import Diagnostics.VarSymbol;
 import Parser.*;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,12 +40,17 @@ public class Binder {
             }
         }
 
+        final Object value;
+
         if (existingVariable != null) {
+            value = this.variables.get(existingVariable);
             this.variables.remove(existingVariable);
+        } else {
+            value = null;
         }
 
         final VarSymbol variable = new VarSymbol(name, boundExpression.getType());
-        this.variables.put(variable, null);
+        this.variables.put(variable, value);
 
         return new BoundAssignmentExpr(variable, boundExpression);
     }

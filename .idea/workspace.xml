@@ -3,13 +3,32 @@
   <component name="AnalysisUIOptions">
     <option name="ANALYZE_INJECTED_CODE" value="false" />
   </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Jinsk:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="376f8319-b15f-45a7-a8bd-704a477911e0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Jinsk_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C_Compiler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Jinsk.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/Binder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/Binder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundBinaryOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundBinaryOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/BoundUnaryOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundUnaryOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Binding/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evaluator/Compilation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evaluator/Compilation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evaluator/Evaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evaluator/Evaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Jinsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Jinsk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/SKind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/SKind.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/SToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/SToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +71,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectConfigurationFiles">
     <option name="files">
@@ -101,10 +123,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "last_opened_file_path": "C:/Users/sully/Documents/JMinsk",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/sully/Documents/JMinsk/exec",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default"
   }
 }]]></component>
@@ -117,7 +140,7 @@
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Jinsk" />
-      <module name="C_Compiler" />
+      <module name="Jinsk" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -175,6 +198,13 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Project" order="8" visible="true" weight="0.12313433" />
     </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((HashMap)((Binder)this).variables).entrySet().toArray()[0]" custom="Binding.Binder,java.util.HashMap" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Lexer/Token.java" />

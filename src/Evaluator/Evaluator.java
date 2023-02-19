@@ -4,6 +4,7 @@ import Binding.*;
 import Diagnostics.VarSymbol;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class Evaluator {
     private final BoundExpression root;
@@ -24,12 +25,33 @@ public class Evaluator {
         }
 
         if (root instanceof final BoundVarExpr v) {
-            return this.variables.get(v.getVar());
+            for (final VarSymbol vs: this.variables.keySet()) {
+                if (Objects.equals(vs.name(), v.getVar().name())) {
+                    return this.variables.get(vs);
+                }
+            }
+
+            throw new Exception("Variable call wasn't resolved: " + v.getVar());
         }
 
         if (root instanceof final BoundAssignmentExpr a) {
             final Object value = evalExpr(a.getExpr());
-            this.variables.put(a.getVar(), value);
+
+            // Cleanup old variable (if any).
+            final String dupName = a.getVar().name();
+            final Type newVarType = new Type(a.getType().type, a.getType().value);
+            final VarSymbol newVar = new VarSymbol(a.getVar().name(), newVarType);
+
+            for (final VarSymbol vs: variables.keySet()) {
+                if (Objects.equals(vs.name(), dupName)) {
+                    if (variables.get(vs) != a.getVar()) {
+                        variables.remove(vs);
+                    }
+                }
+            }
+
+            this.variables.put(newVar, value);
+
             return value;
         }
 
@@ -47,6 +69,17 @@ public class Evaluator {
             final Object left = evalExpr(b.getLeft());
             final Object right = evalExpr(b.getRight());
 
+            // Null values can be used for logical operations.
+            if (b.getOp().getKind() != BoundBinaryOperatorKind.LogicalEquals || b.getOp().getKind() != BoundBinaryOperatorKind.LogicalNotEquals) {
+                if (left == null && right == null) {
+                    throw new Exception("Left hand, and right hand side of binary-expression were null");
+                } else if (left == null) {
+                    throw new Exception("Left hand side of binary-expression was null");
+                } else if (right == null) {
+                    throw new Exception("Right hand side of binary-expression was null");
+                }
+            }
+
             return switch (b.getOp().getKind()) {
                 case Addition -> (float) left + (float) right;
                 case Subtraction -> (float) left - (float) right;
@@ -55,15 +88,12 @@ public class Evaluator {
                 case Modulus -> (float) left % (float) right;
                 case LogicalAnd -> (boolean) left && (boolean) right;
                 case LogicalOr -> (boolean) left || (boolean) right;
-                case LogicalEquals -> left.equals(right);
-                case LogicalNotEquals -> !left.equals(right);
+                case LogicalEquals -> (left == null || right == null) || left.equals(right);
+                case LogicalNotEquals -> (left == null || right == null) || !left.equals(right);
                 case Exponent -> (float) Math.pow((double) left, (double) right);
             };
         }
 
-        throw new Exception("unexpected node: " + root.getKind());
+        throw new Exception("Unexpected node: " + root.getKind());
     }
-
-    public Map<VarSymbol, Object> getVariables() { return this.variables; }
-    private BoundExpression getRoot() { return this.root; }
 }

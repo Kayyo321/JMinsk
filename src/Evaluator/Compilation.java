@@ -18,7 +18,7 @@ public class Compilation {
 
     public DiagnosticBag getDiagnostics() { return this.diagnostics; }
 
-    public EvaluationResult Evaluate(final Map<VarSymbol, Object> variables) throws Exception {
+    public EvaluationResult evaluate(final Map<VarSymbol, Object> variables) throws Exception {
         final Binder binder = new Binder(variables);
         final BoundExpression boundExpression = binder.bindExpr(syntax.root());
 
