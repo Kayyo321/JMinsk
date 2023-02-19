@@ -7,26 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="376f8319-b15f-45a7-a8bd-704a477911e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundAssignmentExpr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Binding/BoundVarExpr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Diagnostics/VarSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Binding/Binder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/Binder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Binding/BoundBinaryOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundBinaryOperator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Binding/BoundNodeKind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/BoundNodeKind.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Binding/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Binding/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Diagnostics/Diagnostic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagnostics/Diagnostic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Diagnostics/DiagnosticBag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagnostics/DiagnosticBag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Diagnostics/TextSpan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagnostics/TextSpan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evaluator/Compilation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evaluator/Compilation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evaluator/EvaluationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evaluator/EvaluationResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evaluator/Evaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evaluator/Evaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Lexer/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/AssignmentExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/AssignmentExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/STree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/STree.java" afterDir="false" />
-    </list>
+    <list default="true" id="376f8319-b15f-45a7-a8bd-704a477911e0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,7 +113,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="Jinsk" />
       <module name="C_Compiler" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Run" />

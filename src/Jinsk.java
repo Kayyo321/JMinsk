@@ -6,7 +6,7 @@ import Parser.*;
 
 import java.util.*;
 
-public class Main {
+public class Jinsk {
     public static void main(final String[] args) {
         STree syntaxTree;
         final Scanner s = new Scanner(System.in);
