@@ -47,4 +47,9 @@ public class DiagnosticBag {
         final String msg = "ERROR: Binary operator '" + text + "' is not defined between types " + lType + ", and " + rType;
         report(span, msg);
     }
+
+    public void reportUndefinedName(final TextSpan span, final String name) {
+        final String msg = "ERROR: Variable: '" + name + "' could not be resolved";
+        report(span, msg);
+    }
 }

@@ -1,14 +1,17 @@
 package Evaluator;
 
-import Lexer.SKind;
-import Parser.*;
 import Binding.*;
+import Diagnostics.VarSymbol;
+
+import java.util.Map;
 
 public class Evaluator {
     private final BoundExpression root;
+    private final Map<VarSymbol, Object> variables;
 
-    public Evaluator(final BoundExpression root) {
+    public Evaluator(final BoundExpression root, final Map<VarSymbol, Object> variables) {
         this.root = root;
+        this.variables = variables;
     }
 
     public Object eval() throws Exception {
@@ -18,6 +21,16 @@ public class Evaluator {
     private Object evalExpr(final BoundExpression root) throws Exception {
         if (root instanceof final BoundLiteralExpression n) {
             return n.getType().value;
+        }
+
+        if (root instanceof final BoundVarExpr v) {
+            return this.variables.get(v.getVar());
+        }
+
+        if (root instanceof final BoundAssignmentExpr a) {
+            final Object value = evalExpr(a.getExpr());
+            this.variables.put(a.getVar(), value);
+            return value;
         }
 
         if (root instanceof final BoundUnaryExpression u) {
@@ -51,5 +64,6 @@ public class Evaluator {
         throw new Exception("unexpected node: " + root.getKind());
     }
 
+    public Map<VarSymbol, Object> getVariables() { return this.variables; }
     private BoundExpression getRoot() { return this.root; }
 }

@@ -28,8 +28,6 @@ public class BoundBinaryOperator {
     public SKind getSkind() { return this.skind; }
     public BoundBinaryOperatorKind getKind() { return this.kind; }
     public Type getResultType() { return this.resultType; }
-    public Type getRightType() { return rightType; }
-    public Type getLeftType() { return leftType; }
 
     private static final BoundBinaryOperator[] operators = {
         new BoundBinaryOperator(SKind.Plus, BoundBinaryOperatorKind.Addition, new Type(Type.Types.Float)),

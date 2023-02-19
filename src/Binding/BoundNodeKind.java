@@ -1,6 +1,6 @@
 package Binding;
 
 public enum BoundNodeKind {
-    BinaryExpr, LiteralExpr, UnaryExpr
+    BinaryExpr, LiteralExpr, VarExpr, AssignmentExpr, UnaryExpr
 
 }

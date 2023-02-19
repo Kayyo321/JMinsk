@@ -18,8 +18,8 @@ public class AssignmentExpr extends Expression {
     }
 
     public SToken getId() { return this.id; }
-    public SToken getEquToken() { return equToken; }
-    public Expression getExpression() { return expression; }
+    //public SToken getEquToken() { return equToken; }
+    public Expression getExpr() { return expression; }
 
     @Override
     public SKind getKind() {

@@ -20,4 +20,18 @@ public class Type {
         this.type = type;
         this.value = value;
     }
+
+    public static Types literal(final Object lit) {
+        if (lit instanceof Integer) {
+            return Types.Integer;
+        } else if (lit instanceof Float) {
+            return Types.Float;
+        } else if (lit instanceof Boolean) {
+            return Types.Boolean;
+        } else if (lit instanceof String) {
+            return Types.String;
+        }
+
+        return null;
+    }
 }

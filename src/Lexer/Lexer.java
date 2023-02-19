@@ -12,7 +12,7 @@ public class Lexer {
     private int pos = 0;
     private final DiagnosticBag diagnostics = new DiagnosticBag();
 
-    private Map<String, SKind> keywords = new HashMap<String, SKind>();
+    private final Map<String, SKind> keywords = new HashMap<>();
 
     public Lexer(final String text) {
          this.text = text;
